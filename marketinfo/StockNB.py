@@ -9,13 +9,13 @@ from flask import (
 )
 
 from marketinfo.db import get_db
-from marketinfo.BaseResponse import dataResp
+from marketinfo.BaseResponse import dataResp, dataRespSuc
 from flask_cors import CORS
 
-bp = Blueprint('stocknb', __name__, url_prefix='/stock/nb')
+bp = Blueprint('stocknb', __name__, url_prefix='/stock')
 CORS(bp) 
 
-@bp.route("/")
+@bp.route("/nb")
 def getStcokNB():
     #return "hello world"
     db = get_db()
@@ -23,3 +23,16 @@ def getStcokNB():
     al = db.fetch_many(sql,200)
     #print(al)
     return dataResp(al)
+
+@bp.route('/<int:code>/tags', methods=['POST'])
+def setTags(code):
+    tags = request.get_json()
+    print(code,tags)
+    '''
+    if (tags is None)  or (tags.get("tags") is None):
+        return dataRespSuc("参数有误", None)
+    else:
+    '''
+        
+    
+    
